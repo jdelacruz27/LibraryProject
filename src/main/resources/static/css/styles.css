@@ -1,0 +1,114 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+html {
+    height: 100%;
+}
+
+.container {
+    min-height: 100%;
+    position: relative;
+    padding-top: 2rem;
+}
+
+#body {
+    padding: 10px;
+    padding-bottom: 60px; /* Height of the footer */
+}
+
+h1 {
+    text-align: center;
+}
+
+#invalid-credentials-msg {
+    text-align: center;
+    color: #ce2525;
+    margin-top: 1rem;
+    margin-bottom: -1rem;
+}
+
+form {
+    margin-top: 1.5rem;
+    max-width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn {
+    margin-top: 1rem;
+    background-color: #7395AE !important;
+    border-color: #557a95 !important;
+}
+
+a:link {
+    text-decoration: none;
+    color: white;
+}
+
+a:visited {
+    color: white;
+}
+
+a:hover {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:active {
+    color: white;
+}
+
+.background-colour {
+    background-color: dimgrey;
+    color: white;
+}
+
+#navbarFrag {
+    background-color: #557a95;
+    color: white;
+    font-size: larger;
+}
+
+#bookLogo {
+    height: 30px;
+    width: 30px;
+    padding: 2px;
+}
+
+table {
+    text-align: center;
+}
+
+.thead-dark {
+    background-color: black;
+}
+.tbody-light{
+    background-color: #979797;
+}
+
+tr {
+    color: white;
+    vertical-align: middle;
+}
+
+tbody{
+    vertical-align: middle;
+
+}
+#changePassword {
+    text-align: center;
+}
+
+#passwordsDoNotMatch {
+    text-align: center;
+    color: red;
+}
+
+#passwordUpdated {
+    text-align: center;
+    color: blue;
+}

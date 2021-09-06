@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Manager</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body class="background-colour" id="account-body">
+<nav th:replace="fragments/header.html :: navbar"></nav>
+
+<div class="container">
+    <h1 id="accountHeading">Accounts</h1>
+
+    <div id="addAccount" class="text-center">
+        <button class="btn btn-primary"><a th:href="@{/addAccount}">Create Account</a></button>
+    </div>
+    <br>
+    <div id="accountList">
+        <table id="accountTable" class="table table-bordered">
+            <thead class="thead-dark">
+            <tr id="accountHeadings">
+                <th scope="col" id="tableHeader1account">ID</th>
+                <th scope="col" id="tableHeader2account">Username</th>
+                <th scope="col" id="tableHeader3account">Role</th>
+                <th scope="col" id="tableHeader4account">Modify</th>
+
+            </tr>
+            </thead>
+           <tbody class="tbody-light">
+           <tr th:each="account, interStat: ${accounts}" th:id="${interStat.index} + 'row'">
+               <td th:text="${account[0]}" th:id="${interStat.index} + 'id'"></td>
+               <td th:text="${account[1]}" th:id="${interStat.index} + 'username'"></td>
+               <td th:text="${account[2]}" th:id="${interStat.index} + 'role'"></td>
+
+               <td><a th:href="@{/changePassword/{id}(id=${account[0]})}" class="btn btn-primary">Edit</a>
+                   <a th:href="@{/deleteUser/{id}(id=${account[0]})}" class="btn btn-primary">Delete</a></td>
+           </tr>
+           </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+</body>
+</html>
