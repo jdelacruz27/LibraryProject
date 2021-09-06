@@ -1,4 +1,4 @@
-#Sparta Library Project
+# Sparta Library Project
 
 A system that simulates a library and does the following:
 - A database that hold details on books (ISBN number, title, author, genre).
@@ -10,7 +10,7 @@ A system that simulates a library and does the following:
 
 This system is created in Springboot with spring security, JPA, MySql, JavaScript and HTML.
 
-#User Guide
+# User Guide
 Once a connection has been made to a Mysql database schema, in the LibraryProjectApplication class in
 the directory of src/java/com.sparta.jian.libraryproject a new user object that has an ADMIN role
 to have full control of the website needs to be created. This user will be saved in the database and will allow access
