@@ -1,6 +1,5 @@
 package com.sparta.jian.libraryproject.services;
 
-import com.sparta.jian.libraryproject.entities.AuthorEntity;
 import com.sparta.jian.libraryproject.entities.BookEntity;
 import com.sparta.jian.libraryproject.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +42,9 @@ public class BookService {
         );
     }
 
-    public List<BookEntity> findByKeyword(String keyword){
+    public List<Object[]> findByKeyword(String keyword){
         return bookRepository.findByKeyword(keyword);
     }
+
 
 }

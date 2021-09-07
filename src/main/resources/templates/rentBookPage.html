@@ -17,6 +17,15 @@
 <div class="container">
     <h1 id="renBookHeading">Rent A BooK</h1>
     <br>
+    <form id="search-form" th:action="@{/rent}" method="get">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search a Book..." name="keyword" th:value="${keyword}" required>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+    <br>
     <div id="rentBookList">
         <table class="table table-bordered">
             <thead class="thead-dark">

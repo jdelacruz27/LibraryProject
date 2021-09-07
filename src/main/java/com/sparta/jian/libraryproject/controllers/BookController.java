@@ -5,6 +5,7 @@ import com.sparta.jian.libraryproject.services.AuthorService;
 import com.sparta.jian.libraryproject.services.BookService;
 import com.sparta.jian.libraryproject.services.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,17 +29,26 @@ public class BookController {
 
     //fragment - objects
     @GetMapping("/bookPage")
-    public String showBookPage(Model model, String keyword){
+    public String showBookPage(Model model, @Param("keyword") String keyword){
 
         if(keyword != null){
-            model.addAttribute("book", bookService.findByKeyword(keyword));
+            keyword = keyword.replaceAll("\\s+", "%");
+            model.addAttribute("books", bookService.findByKeyword(keyword));
+            model.addAttribute("keyword", keyword.replaceAll("%", " "));
         } else {
             model.addAttribute("books", bookService.getAllBooksObjects());
         }
-
         return "bookPage";
     }
 
+//    @GetMapping("/searchBook/{")
+//    public String searchBook(@RequestParam(name = "keyword")String keyword, Model model){
+//        keyword = keyword.replaceAll("\\s+", "%");
+//        System.out.println(keyword);
+//        model.addAttribute("books", bookService.findByKeyword(keyword));
+//        model.addAttribute("keyword", keyword.replaceAll("%", " "));
+//        return "bookPage";
+//    }
 
     @GetMapping("/addBook")
     public String showAddBookPage(Model model){

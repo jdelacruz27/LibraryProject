@@ -26,7 +26,7 @@ public class AuthorEntity {
     }
 
     @Id
-    @Column(name="authorId")
+    @Column(name="author_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceCourse")
     public Integer getAuthorId() {
         return authorId;

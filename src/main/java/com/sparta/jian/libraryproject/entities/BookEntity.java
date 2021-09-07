@@ -65,7 +65,7 @@ public class BookEntity {
     }
 
     @Basic
-    @Column(name="authorId")
+    @Column(name="author_id")
     public Integer getAuthor() {
         return authorId;
     }

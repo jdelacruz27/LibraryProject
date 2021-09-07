@@ -5,12 +5,12 @@ import com.sparta.jian.libraryproject.entities.BookEntity;
 import com.sparta.jian.libraryproject.entities.RentedBookEntity;
 import com.sparta.jian.libraryproject.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 
 
 @Controller
@@ -31,14 +31,25 @@ public class RentedBookController {
     }
 
     @GetMapping("/rent")
-    public String showRentPage(Model model) {
-        model.addAttribute("books", bookService.getAllBooksObjects());
+    public String showRentPage(Model model,@Param("keyword") String keyword) {
+
+        if(keyword != null){
+            keyword = keyword.replaceAll("\\s+", "%");
+            model.addAttribute("books", bookService.findByKeyword(keyword));
+            model.addAttribute("keyword", keyword.replaceAll("%", " "));
+        } else {
+            model.addAttribute("books", bookService.getAllBooksObjects());
+        }
         return "rentBookPage";
     }
 
     @GetMapping("/rentBook/{id}")
-    public String rentBook(@PathVariable("id") Integer id, BookEntity bookEntity, RentedBookEntity rental, Authentication authentication){
-        bookEntity = bookService.findBookById(id);
+    public String rentBook(@PathVariable("id") Integer id,
+                           @Param("keyword") String keyword,
+                           RentedBookEntity rental,
+                           Authentication authentication,
+                           Model model){
+        BookEntity bookEntity = bookService.findBookById(id);
         rental.setBookId(bookEntity.getBookId());
         rental.setIsbnNumber(bookEntity.getIsbnNumber());
         rental.setTitle(bookEntity.getTitle());
@@ -47,6 +58,7 @@ public class RentedBookController {
         rental.setUser(userService.findUserIdByName(authentication.getName()));
         rentedBookService.addBook(rental);
         bookService.deleteBook(id);
+        model.addAttribute("keyword", keyword);
         return "redirect:/rent";
     }
 
@@ -58,8 +70,8 @@ public class RentedBookController {
     }
 
     @GetMapping("/return/{id}")
-    public String returnBook(@PathVariable("id") Integer id, RentedBookEntity rental, BookEntity bookEntity){
-        rental = rentedBookService.findBookById(id);
+    public String returnBook(@PathVariable("id") Integer id, BookEntity bookEntity){
+        RentedBookEntity rental = rentedBookService.findBookById(id);
         bookEntity.setBookId(id);
         bookEntity.setIsbnNumber(rental.getIsbnNumber());
         bookEntity.setTitle(rental.getTitle());
@@ -69,34 +81,5 @@ public class RentedBookController {
         rentedBookService.returnBook(id);
         return "redirect:/bookBag";
     }
-
-//    @GetMapping("/return/{id}")
-//    public String checkReturn(@PathVariable ("id") Integer id,  Model model){
-//        model.addAttribute("book", rentedBookService.findBookById(id));
-//        model.addAttribute("authors", authorService.getAllAuthorEntities());
-//        model.addAttribute("genres", genreService.getAllGenreEntities());
-//        return "checkReturnPage";
-//    }
-//
-//
-//    @PostMapping("/returnBook/{id}")
-//    public String returnBook(@PathVariable("id") Integer id,
-//                             @RequestParam(name = "isbnNumber") Integer isbn,
-//                             @RequestParam(name = "title") String title,
-//                             @RequestParam(name = "author") Integer author,
-//                             @RequestParam(name = "genre") Integer genre){
-//
-//        BookEntity bookEntity = new BookEntity();
-//        bookEntity.setBookId(id);
-//        bookEntity.setIsbnNumber(isbn);
-//        bookEntity.setTitle(title);
-//        bookEntity.setAuthor(author);
-//        bookEntity.setGenre(genre);
-//        bookService.addBook(bookEntity);
-//        rentedBookService.returnBook(id);
-//        return "redirect:/bookBag";
-//    }
-
-
 
 }
