@@ -41,22 +41,13 @@ public class BookController {
         return "bookPage";
     }
 
-//    @GetMapping("/searchBook/{")
-//    public String searchBook(@RequestParam(name = "keyword")String keyword, Model model){
-//        keyword = keyword.replaceAll("\\s+", "%");
-//        System.out.println(keyword);
-//        model.addAttribute("books", bookService.findByKeyword(keyword));
-//        model.addAttribute("keyword", keyword.replaceAll("%", " "));
-//        return "bookPage";
-//    }
 
     @GetMapping("/addBook")
     public String showAddBookPage(Model model){
         model.addAttribute("authors", authorService.getAllAuthorEntities());
         model.addAttribute("genres", genreService.getAllGenreEntities());
-        return "addBook"
-;    }
-
+        return "addBook";
+    }
 
     @PostMapping("/addBook")
     public String addBook(@RequestParam(name = "isbnNumber") Integer isbn,

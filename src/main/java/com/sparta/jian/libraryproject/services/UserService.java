@@ -1,6 +1,5 @@
 package com.sparta.jian.libraryproject.services;
 
-import com.sparta.jian.libraryproject.entities.AuthorEntity;
 import com.sparta.jian.libraryproject.entities.UserEntity;
 import com.sparta.jian.libraryproject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import java.util.List;
 
 @Service
 public class UserService {
-    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     private final UserRepository userRepository;
 
     @Autowired
@@ -39,18 +37,5 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(
                 ()-> new IllegalArgumentException("Invalid ID" + id)
         );
-    }
-
-    public String checkPassword(Integer userId, String password, String confirm) {
-
-        if (password.equals(confirm)) {
-            UserEntity user = findUserById(userId);
-
-            user.setUserPassword(encoder.encode(password));
-            userRepository.save(user);
-            return "Password Match";
-        } else {
-            return "Password Do Not Match";
-        }
     }
 }

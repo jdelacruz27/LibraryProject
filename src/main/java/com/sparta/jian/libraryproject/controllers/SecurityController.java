@@ -14,14 +14,6 @@ public class SecurityController {
 
     @GetMapping("/")
     public String goToWelcome(UserEntity userEntity, Authentication authentication){
-//       userEntity = userService.findUserById(userService.findUserIdByName(authentication.getName()));
-//       String role = userEntity.getUserRole();
-//       if(role.equals("AMIN")){
-//           return "redirect:/welcomeAdmin";
-//       } else if (role.equals("USER")){
-//           return "redirect:/welcomeUser";
-//       }
-
         return "redirect:/bookPage";
     }
 

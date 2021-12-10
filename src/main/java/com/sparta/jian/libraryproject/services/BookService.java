@@ -16,10 +16,6 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-//    public Iterable<BookEntity> getAllBooks(){
-//        return bookRepository.findAll();
-//    }
-
     public List<Object[]> getAllBooksObjects(){
         return bookRepository.getAllBooksByArray();
     }
@@ -45,6 +41,4 @@ public class BookService {
     public List<Object[]> findByKeyword(String keyword){
         return bookRepository.findByKeyword(keyword);
     }
-
-
 }
